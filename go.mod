@@ -79,7 +79,7 @@ require (
 	github.com/projectdiscovery/mapcidr v1.1.1 // indirect
 	github.com/projectdiscovery/networkpolicy v0.0.5 // indirect
 	github.com/projectdiscovery/ratelimit v0.0.6 // indirect
-	github.com/projectdiscovery/retryabledns v1.0.21 // indirect
+	github.com/projectdiscovery/retryabledns v1.0.22 // indirect
 	github.com/projectdiscovery/retryablehttp-go v1.0.15 // indirect
 	github.com/projectdiscovery/uncover v1.0.3 // indirect
 	github.com/projectdiscovery/utils v0.0.24 // indirect
