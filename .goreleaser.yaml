@@ -1,0 +1,60 @@
+project_name: apoch
+
+before:
+  hooks:
+    - go mod tidy
+    - ./assets/scripts/completions.sh
+
+builds:
+  - env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - darwin
+    goarch:
+      - amd64
+      - arm64
+    binary: apoch
+    ldflags:
+      - -s -w -X main.build={{.Version}}
+
+brews:
+  - tap:
+      owner: rollwagen
+      name: homebrew-tap
+    license: Apache-2.0
+    install: |-
+      bin.install "apoch"
+      bash_completion.install "completions/apoch.bash" => "apoch"
+      zsh_completion.install "completions/apoch.zsh" => "_apoch"
+      fish_completion.install "completions/apoch.fish"
+
+checksum:
+  name_template: 'checksums.txt'
+
+signs:
+  - cmd: cosign
+    stdin: '{{ .Env.COSIGN_PWD }}'
+    args:
+      - sign-blob
+      - --key=assets/cosign/cosign.key
+      - --output-signature=${signature}
+      - --yes
+      - ${artifact}
+    artifacts: checksum
+
+archives:
+  - files:
+      - README.md
+      - LICENSE
+      - completions/*
+
+snapshot:
+  name_template: "{{ incpatch .Version }}-next"
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
