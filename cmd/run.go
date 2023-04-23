@@ -16,6 +16,7 @@ limitations under the License.
 package cmd
 
 import (
+	"fmt"
 	"os"
 	"strings"
 
@@ -38,7 +39,11 @@ var runCmd = &cobra.Command{
 
 	Run: func(_ *cobra.Command, _ []string) {
 		logger := setupLogger(logLevel)
-		apoch.QueryIPsAndScan(logger, skipScan)
+		err := apoch.QueryIPsAndScan(logger, skipScan)
+		if err != nil {
+			_, _ = fmt.Fprint(os.Stderr, err)
+			os.Exit(1)
+		}
 	},
 }
 

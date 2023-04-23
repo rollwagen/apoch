@@ -7,8 +7,10 @@ require (
 	github.com/aws/aws-sdk-go-v2 v1.17.8
 	github.com/aws/aws-sdk-go-v2/config v1.18.21
 	github.com/aws/aws-sdk-go-v2/service/configservice v1.31.2
+	github.com/aws/aws-sdk-go-v2/service/ec2 v1.93.2
 	github.com/fatih/color v1.15.0
 	github.com/hokaccha/go-prettyjson v0.0.0-20211117102719-0474bc63780f
+	github.com/jedib0t/go-pretty/v6 v6.4.6
 	github.com/projectdiscovery/gologger v1.1.8
 	github.com/projectdiscovery/naabu/v2 v2.1.5
 	github.com/samber/lo v1.38.1
@@ -49,6 +51,7 @@ require (
 	github.com/google/gopacket v1.1.19 // indirect
 	github.com/gorilla/css v1.0.0 // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
+	github.com/jmespath/go-jmespath v0.4.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/lann/builder v0.0.0-20180802200727-47ae307949d0 // indirect
 	github.com/lann/ps v0.0.0-20150810152359-62de8c46ede0 // indirect

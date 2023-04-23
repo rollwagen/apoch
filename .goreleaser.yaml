@@ -2,7 +2,6 @@ project_name: apoch
 
 before:
   hooks:
-    - go mod tidy
     - ./assets/scripts/completions.sh
 
 builds:
