@@ -1,5 +1,49 @@
-# APoCh
+# aws-port-checker
 
-**A**WS **Po**rt **Ch**ecker
+**A**WS **Po**rt **Ch**ecker = `apoch`
 
-<img width="961" alt="image" src="https://user-images.githubusercontent.com/7364201/233836213-e8cea8c5-70d8-42b2-8fd6-49b2ca4689ae.png">
+Runs a port scan of all VPC public IPs found in AWS Config.
+
+<img width="1054" alt="image" src="https://user-images.githubusercontent.com/7364201/233852722-13bb1a62-92d5-4c73-86d4-55208a62696d.png">
+
+```text
+Run a port scan of all VPC public IPs found in AWS ConfigService
+
+Usage:
+  apoch [command]
+
+Available Commands:
+  completion  Generate the autocompletion script for the specified shell
+  help        Help about any command
+  run         Run a port scan of all VPC public IPs found in AWS ConfigService
+
+Flags:
+  -h, --help   help for apoch
+
+Use "apoch [command] --help" for more information about a command.
+```
+
+## Install and run
+
+### Brew
+
+```sh
+brew tap rollwagen/homebrew-tap
+brew install rollwagen/tap/apoch
+```
+
+### Go
+
+To run directly:
+
+```sh
+go run github.com/rollwagen/apoch@latest --help
+```
+
+## Build
+
+```sh
+git clone https://github.com/rollwagen/apoch
+cd apoch
+make build
+```
