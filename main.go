@@ -3,7 +3,9 @@ package main
 import (
 	"context"
 	"fmt"
+	"net"
 	"os"
+	"strings"
 
 	"github.com/fatih/color"
 	"github.com/hokaccha/go-prettyjson"
@@ -36,7 +38,7 @@ func (w discardWriter) Write(_ []byte, _ levels.Level) {
 // Resource represents an AWS resource
 type Resource struct {
 	ID               string
-	PublicIP         string
+	PublicIP         net.IP
 	Type             string
 	AvailabilityZone string
 	Region           string
@@ -65,6 +67,8 @@ func QueryIPsAndScan() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	log.Info("Getting a list of all public IP addresses tied to VPC via AWS ConfigService query")
 	log.Debug(sql)
 
 	ctx := context.Background()
@@ -92,7 +96,7 @@ func QueryIPsAndScan() {
 		r := Resource{
 			ID:               gjson.Get(resultJSON, "resourceId").String(),
 			Type:             gjson.Get(resultJSON, "resourceTyp").String(),
-			PublicIP:         gjson.Get(resultJSON, "configuration.association.publicIp").String(),
+			PublicIP:         net.ParseIP(gjson.Get(resultJSON, "configuration.association.publicIp").String()),
 			Account:          gjson.Get(resultJSON, "accountId").String(),
 			AvailabilityZone: gjson.Get(resultJSON, "availabilityZone").String(),
 			Region:           gjson.Get(resultJSON, "awsRegion").String(),
@@ -108,12 +112,14 @@ func QueryIPsAndScan() {
 		os.Exit(0)
 	}
 
-	publicIPs := lo.Map(resources, func(r Resource, index int) string { return r.PublicIP })
+	publicIPs := lo.Map(resources, func(r Resource, index int) string { return r.PublicIP.String() })
+
+	log.Debugf("List of public IPs to be scanned: %v", publicIPs)
 
 	options := runner.Options{
 		Host: publicIPs,
 		OnResult: func(hr *result.HostResult) {
-			resource := lo.Filter(resources, func(r Resource, index int) bool { return r.PublicIP == hr.IP })[0] // should one be one resource with this public IP
+			resource := lo.Filter(resources, func(r Resource, index int) bool { return r.PublicIP.String() == hr.IP })[0] // should one be one resource with this public IP
 
 			for _, p := range hr.Ports {
 				log.Warnw(fmt.Sprintf("%s  %s has open port %s", red("\uF071"), bold(hr.IP), bold(p.Port)), "resource_id", resource.ID, "account", resource.Account)
@@ -140,6 +146,8 @@ func QueryIPsAndScan() {
 	defer naabuRunner.Close()
 
 	log.Info("Starting port scanning for all found public IP addresses for top 100 ports")
+	log.Debugf("Ports Top100 = %s", runner.NmapTop100)
+
 	err = naabuRunner.RunEnumeration()
 	if err != nil {
 		log.Error(err)
@@ -154,7 +162,17 @@ func main() {
 
 // init initializes the logger
 func init() {
-	logLevel := zapcore.DebugLevel
+	logLevel := zapcore.InfoLevel
+	if level, ok := os.LookupEnv("LOG_LEVEL"); ok {
+		switch strings.ToUpper(level) {
+		case "ERROR":
+			logLevel = zapcore.ErrorLevel
+		case "WARN":
+			logLevel = zapcore.WarnLevel
+		case "DEBUG":
+			logLevel = zapcore.DebugLevel
+		}
+	}
 
 	encoderCfg := zapcore.EncoderConfig{
 		MessageKey:  "message",
