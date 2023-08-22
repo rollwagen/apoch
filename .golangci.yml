@@ -2,7 +2,7 @@
 run:
   deadline: 5m
   skip-dirs:
-  - scripts
+    - scripts
 
 linters:
   disable-all: true
@@ -49,7 +49,7 @@ linters:
   fast: false
 
 linters-settings:
-        revive:
-            rules:
-                - name: var-naming
-                  disabled: false
+  revive:
+    rules:
+      - name: var-naming
+        disabled: false
