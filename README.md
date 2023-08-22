@@ -1,6 +1,5 @@
 # aws-port-checker
 
-
 [![GitHub Release](https://img.shields.io/github/release/rollwagen/apoch.svg?style=flat-square)](https://github.com/rollwagen/apoch/releases)
 [![Go Reference](https://pkg.go.dev/badge/github.com/rollwagen/apoch.svg?style=flat-square)](https://pkg.go.dev/github.com/rollwagen/apoch)
 [![Go Report Card](https://goreportcard.com/badge/github.com/rollwagen/apoch?style=flat-square)](https://goreportcard.com/report/github.com/rollwagen/apoch)
@@ -54,5 +53,3 @@ git clone https://github.com/rollwagen/apoch
 cd apoch
 make build
 ```
-
-

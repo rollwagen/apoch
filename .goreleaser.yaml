@@ -28,11 +28,11 @@ brews:
       fish_completion.install "completions/apoch.fish"
 
 checksum:
-  name_template: 'checksums.txt'
+  name_template: checksums.txt
 
 signs:
   - cmd: cosign
-    stdin: '{{ .Env.COSIGN_PWD }}'
+    stdin: "{{ .Env.COSIGN_PWD }}"
     args:
       - sign-blob
       - --key=assets/cosign/cosign.key
@@ -54,5 +54,5 @@ changelog:
   sort: asc
   filters:
     exclude:
-      - '^docs:'
-      - '^test:'
+      - "^docs:"
+      - "^test:"
