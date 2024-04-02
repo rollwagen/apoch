@@ -158,7 +158,7 @@ func QueryIPsAndScan(log *zap.SugaredLogger, skipScan bool) error {
 	log.Info("Starting port scanning for all found public IP addresses for top 100 ports")
 	log.Debugf("Ports Top100 = %s", runner.NmapTop100)
 
-	err = naabuRunner.RunEnumeration()
+	err = naabuRunner.RunEnumeration(ctx)
 	if err != nil {
 		log.Error(err)
 	}
