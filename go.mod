@@ -96,7 +96,7 @@ require (
 	github.com/projectdiscovery/retryablehttp-go v1.0.42 // indirect
 	github.com/projectdiscovery/uncover v1.0.7 // indirect
 	github.com/projectdiscovery/utils v0.0.72 // indirect
-	github.com/quic-go/quic-go v0.40.1 // indirect
+	github.com/quic-go/quic-go v0.42.0 // indirect
 	github.com/refraction-networking/utls v1.6.1 // indirect
 	github.com/remeh/sizedwaitgroup v1.0.0 // indirect
 	github.com/rivo/uniseg v0.4.4 // indirect
