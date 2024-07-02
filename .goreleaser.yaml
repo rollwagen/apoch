@@ -3,6 +3,7 @@ version: 2
 
 before:
   hooks:
+    - rm -rf ./dist
     - ./assets/scripts/completions.sh
 
 builds:
