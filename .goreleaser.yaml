@@ -1,4 +1,5 @@
 project_name: apoch
+version: 2
 
 before:
   hooks:
@@ -17,7 +18,8 @@ builds:
       - -s -w -X main.build={{.Version}}
 
 brews:
-  - tap:
+  -
+    repository:
       owner: rollwagen
       name: homebrew-tap
     license: Apache-2.0
